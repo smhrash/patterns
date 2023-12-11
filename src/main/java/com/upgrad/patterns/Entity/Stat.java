@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Stat {
 
     @JsonProperty("confirmed")
-    private Float confirmed;
+    private Double confirmed;
 
     @JsonProperty("deaths")
     private Integer deaths;
@@ -21,7 +21,7 @@ public class Stat {
     @JsonProperty("recovered")
     private Integer recovered;
 
-    public Float getConfirmed() {
+    public Double getConfirmed() {
         return this.confirmed;
     }
 }

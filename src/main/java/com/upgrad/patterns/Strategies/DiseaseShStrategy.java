@@ -36,19 +36,19 @@ public class DiseaseShStrategy implements IndianDiseaseStat {
             } else {
                 logger.error("Received null or incomplete response from DiseaseSh API");
                 // Return a default or error value
-                return "Data not available";
+                return null;
             }
         } catch (Exception e) {
             logger.error("Error fetching DiseaseSh data", e);
             // Return a default or error value
-            return "Error fetching data";
+            return null;
         }
     }
 
     private DiseaseShResponse getDiseaseShResponseResponses() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        headers.add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36");
+        headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 
         HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 

@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class JohnHopkinsStrategy implements IndianDiseaseStat {
@@ -34,10 +32,10 @@ public class JohnHopkinsStrategy implements IndianDiseaseStat {
 		try {
 			JohnHopkinResponse[] responses = getJohnHopkinResponses();
 			if (responses != null) {
-				float sum = Arrays.stream(responses)
+				Double sum = Arrays.stream(responses)
 						.filter(response -> "India".equals(response.getCountry()) && response.getStats() != null)
 						.map(response -> response.getStats().getConfirmed())
-						.reduce(0.0f, Float::sum);
+						.reduce(0.0, Double::sum);
 				return String.valueOf(Math.round(sum));
 			} else {
 				logger.error("Received null response from John Hopkins API");
@@ -54,7 +52,7 @@ public class JohnHopkinsStrategy implements IndianDiseaseStat {
 	private JohnHopkinResponse[] getJohnHopkinResponses() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36");
+		headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
 
 		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 

@@ -16,24 +16,19 @@ public class RestServiceGenerator {
     }
 
     public static RestTemplate GetInstance() {
-        // Double-checked locking principle.
-        // Check if the instance is null before synchronizing to improve performance.
+        // Execute if restTemplate is null
         if (restTemplate == null) {
-            // Synchronized block to remove multi-threading issues
-            synchronized (RestServiceGenerator.class) {
-                // Check again as multiple threads can reach above step
-                if (restTemplate == null) {
-                    restTemplate = new RestTemplateBuilder()
-                            .interceptors((request, body, execution) -> {
-                                logger.info(String.format("Calling %s %s", request.getMethod(), request.getURI()));
-                                ClientHttpResponse response = execution.execute(request, body);
-                                logger.info("Call completed %s %s responded with %s", request.getMethod(), request.getURI(), response.getStatusCode());
-                                return response;
-                            })
-                            .build();
-                }
-            }
+
+            restTemplate = new RestTemplateBuilder()
+                    .interceptors((request, body, execution) -> {
+                        logger.info(String.format("Calling %s %s", request.getMethod(), request.getURI()));
+                        ClientHttpResponse response = execution.execute(request, body);
+                        logger.info("Call completed %s %s responded with %s", request.getMethod(), request.getURI(), response.getStatusCode());
+                        return response;
+                    })
+                    .build();
         }
+
 
         return restTemplate;
     }

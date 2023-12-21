@@ -17,6 +17,7 @@ public class RestServiceGenerator {
 
     public static RestTemplate GetInstance() {
         // Execute if restTemplate is null
+        // Initialize restTemplate. This is executed only once.
         if (restTemplate == null) {
 
             restTemplate = new RestTemplateBuilder()
@@ -28,7 +29,6 @@ public class RestServiceGenerator {
                     })
                     .build();
         }
-
 
         return restTemplate;
     }
